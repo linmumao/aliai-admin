@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <p>1231232132123</p>
+    <button>下载</button>
+
+    <script>
+      const btn = document.querySelector("button");
+      const txt = document.querySelector("p").innerText;
+      const bloc = new Blob([txt], {
+        type: "text/plain",
+      });
+
+      btn.addEventListener("click", test);
+
+      // function test() {
+      //   // const blobUrl = window.URL.createObjectURL(bloc);
+
+      //   const src = 'https://aliai-1306521056.cos.ap-nanjing.myqcloud.com/1470323419924008960'
+      //   const filename = "test.jpg";
+      //   const canvas = document.createElement('canvas')
+      //   const img = douc
+      // }
+
+      function test() {
+        const src =
+          "https://aliai-1306521056.cos.ap-nanjing.myqcloud.com/1470323419924008960";
+        downloadByBlob(src, "test");
+      }
+      function downloadByBlob(url, name) {
+        let image = new Image();
+        image.setAttribute("crossOrigin", "anonymous");
+        image.src = url;
+        image.onload = () => {
+          let canvas = document.createElement("canvas");
+          canvas.width = image.width;
+          canvas.height = image.height;
+          let ctx = canvas.getContext("2d");
+          ctx.drawImage(image, 0, 0, image.width, image.height);
+          canvas.toBlob((blob) => {
+            let url = URL.createObjectURL(blob);
+            download(url, name);
+            // 用完释放URL对象
+            URL.revokeObjectURL(url);
+          });
+        };
+      }
+      function download(href, name) {
+        let eleLink = document.createElement("a");
+        eleLink.download = name;
+        eleLink.href = href;
+        eleLink.click();
+        eleLink.remove();
+      }
+    </script>
+  </body>
+</html>

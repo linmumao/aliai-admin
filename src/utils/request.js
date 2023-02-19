@@ -13,14 +13,13 @@ const router = new Router({
 });
 
 const Server = axios.create({
-  	baseURL: "http://192.168.1.74:80/api/", //永华环境
+  baseURL: "http://192.168.1.74:80/api/", //永华环境
 
-
-	// baseURL: "http://81.71.41.147:30500/api/",
+  // baseURL: "http://81.71.41.147:30500/api/",
   // baseURL: "http://159.75.245.152:30050/api/", //测试环境
   // baseURL: "http://192.168.1.20:80/api/", //本地环境
   // timeout: 3000,
-	//  baseURL: homeUrl,
+  //  baseURL: homeUrl,
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json; charset=utf-8",
@@ -49,6 +48,16 @@ Server.interceptors.response.use(
       router.replace({ path: "/home" });
       // router.go(0)
       location.reload();
+    }
+    // 如果是二进制类数据直接返回
+    const contentType = response && response.headers["content-type"];
+
+    if (
+      response &&
+      (contentType === "text/plain" ||
+        contentType === "application/octet-stream")
+    ) {
+      return response;
     }
     if (response.config.url == "merchant/merchant/importExcel") {
       return response;
