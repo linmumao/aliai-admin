@@ -1,0 +1,255 @@
+/* 主色 */
+.themeC {
+	color: #1677FF !important;
+}
+
+/* 背景色 */
+.themeBgc {
+	background-color: #F5F7FA;
+}
+
+/* 渐变主色 */
+.themeJbs {
+	background: linear-gradient(278deg, #1677FF 0%, #168FFF 100%);
+}
+
+/* 弹框 */
+.el-dialog__title {
+	font-size: 16px !important;
+}
+
+.el-icon-close:before {
+	/* color: #666666; */
+	font-size: 18px;
+}
+
+.el-dialog__header {
+	opacity: 1;
+	background: #f5f7fa;
+	height: 54px;
+	border-radius: 8px 8px 0px 0px !important;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+/* .el-dialog__footer {
+		border-radius: 0px 0px 4px 4px !important;
+	} */
+
+/* 选择-多选-单选 */
+.el-radio {
+	font-weight: 400 !important;
+}
+
+.el-checkbox {
+	font-weight: 400 !important;
+}
+
+/* 图标 */
+
+.el-icon-close {
+	font-size: 20px;
+}
+
+
+/* 输入框 */
+.el-input--prefix .el-input__inner {
+	padding-left: 0.46875rem !important;
+	text-align: left !important;
+}
+
+.el-input__inner {
+	height: 32px !important;
+	line-height: 32px !important;
+}
+
+.el-input__icon {
+	line-height: 32px !important;
+}
+
+.el-select__caret {
+	height: 32px !important;
+}
+
+.kkbigbox {
+	margin-top: 24px;
+
+	.kkbox {
+		width: 3.294117rem;
+		min-width: 3rem;
+	}
+}
+
+/* 按钮 */
+.el-button {
+	padding: 0px 22px !important;
+	height: 32px !important;
+	font-size: 14px;
+}
+
+/* 信息页面 */
+.boxFooter {
+	position: absolute;
+	height: 64px;
+	width: 100%;
+	bottom: 40px;
+	background-color: #FFFFFF;
+	box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.10);
+}
+
+
+.bigBox {
+	width: 100%;
+	height: 100%;
+	position: relative;
+
+	.oneBox {
+		position: absolute;
+		top: 65%;
+		left: 50%;
+		width: 22.5rem;
+		height: 640px;
+		/* background: pink; */
+		/* 灰色/分割线、描边、滚动条 */
+		-ms-transform: translate(-50%, -50%);
+		-moz-transform: translate(-50%, -50%);
+		-o-transform: translate(-50%, -50%);
+		transform: translate(-50%, -50%);
+
+		.headerBox {
+			width: 22.5rem;
+			height: 2.25rem;
+			border-radius: 0.25rem;
+
+			.says {
+				/* 16px 加粗 */
+
+				font-family: Microsoft YaHei;
+				font-style: normal;
+				font-weight: 600;
+				font-size: 0.5rem;
+				line-height: 0.65625rem;
+
+				/* 666666 */
+
+				color: #666666;
+			}
+
+			.saycontent {
+				/* 16px 常规 */
+
+				font-family: Microsoft YaHei;
+				font-style: normal;
+				font-weight: normal;
+				font-size: 0.5rem;
+				line-height: 0.65625rem;
+
+				/* 666666 */
+
+				color: #666666;
+			}
+
+			.rbtn {
+				margin-right: 0.75rem;
+				width: 3.75rem;
+				height: 1.25rem;
+
+				/* 灰色/选中背景、按钮背景 */
+
+				background: #F3F3F3;
+				border-radius: 0.125rem;
+				/* 16px 加粗 */
+
+				font-family: Microsoft YaHei;
+				font-style: normal;
+				font-weight: 600;
+				font-size: 0.5rem;
+				line-height: 1.25rem;
+				text-align: center;
+
+				/* 主色玫红 */
+
+				.domfont {
+					color: #EB4778;
+				}
+			}
+		}
+
+		.footerBox {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			margin-top: 0.75rem;
+			width: 22.5rem;
+			height: 10rem;
+			background: #FFFFFF;
+			/* 灰色/分割线、描边、滚动条 */
+			border: 0.03125rem dashed #E9E9E9;
+			border-radius: 0.25rem;
+
+			.excelBox {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				border: none;
+
+				.excelImg {
+					width: 1.75rem;
+					height: 1.75rem;
+				}
+			}
+
+			.excelText {
+				margin-top: 0.609375rem;
+			}
+
+			.upBtn {
+				display: flex;
+				flex-direction: row;
+				justify-content: center;
+				margin-top: 1.25rem;
+				width: 3.75rem;
+				height: 1.25rem;
+
+				/* 玫红-橘红渐变 */
+
+				background: linear-gradient(278deg, #FF986B 0%, #EB4778 100%);
+				border-radius: 0.125rem;
+
+				.upIp {
+					/* 16px 加粗 */
+
+					font-family: Microsoft YaHei;
+					font-style: normal;
+					font-weight: 600;
+					font-size: 0.5rem;
+					line-height: 0.65625rem;
+
+					/* 白色 */
+
+					color: #FFFFFF;
+				}
+			}
+		}
+
+		.importSuc {
+			margin-top: 0.75rem;
+			font-size: 0.5rem;
+			font-family: Microsoft YaHei, Microsoft YaHei-Semibold;
+			font-weight: 600;
+			text-align: LEFT;
+			color: #333333;
+		}
+
+		.sucCont {
+			margin-top: 0.25rem;
+			font-size: 0.5rem;
+			font-family: Microsoft YaHei, Microsoft YaHei-Regular;
+			font-weight: 400;
+			text-align: LEFT;
+			color: #666666;
+		}
+	}
+}

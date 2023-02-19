@@ -1,0 +1,29 @@
+/* 字体 */
+.fontS_b {
+	font-size: 24px;
+	font-family: Microsoft YaHei, Microsoft YaHei-Semibold;
+	text-align: CENTER;
+}
+
+.fontS_m {
+	font-size: 16px;
+	font-family: Microsoft YaHei, Microsoft YaHei-Semibold;
+	text-align: CENTER;
+}
+
+/* 字体颜色 */
+.fontC_3F {
+	color: #ffffff;
+}
+
+.fontC_303133 {
+	color: #303133;
+}
+
+/* 字体粗细 */
+.fontW_b {
+	width: 600;
+}
+.fontW_S {
+	width: 400;
+}
