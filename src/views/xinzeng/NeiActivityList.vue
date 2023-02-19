@@ -117,7 +117,7 @@
                       <template slot-scope="scope">
                       <el-button size="mini" type="primary" @click="editUser(scope.row)">编辑</el-button>
                       <el-button size="mini" type="primary" @click="dialogFormVisible = true">数据</el-button>
-                      <el-button size="mini" type="primary" >复制</el-button>
+                      <el-button size="mini" type="primary" @click="copy(scope.row)">复制</el-button>
                       <el-button size="mini" type="primary" @click="deleteactivitylist( scope.row)">删除</el-button>
                       </template>
                   </el-table-column>
@@ -504,6 +504,17 @@
               name: 'AddNeiActivityList',
               query: {
                 upMangerId: '-1'
+              }
+            })
+          },
+
+          //复制跳转到新增页面
+          copy(row){
+              this.$router.push({
+              name: 'AddNeiActivityList',
+              query: {
+                upMangerId: '-2',
+                row: row,
               }
             })
           },

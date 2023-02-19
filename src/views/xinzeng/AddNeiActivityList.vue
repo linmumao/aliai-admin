@@ -414,27 +414,34 @@ import {addneiactivitylist , updataactivitylist ,journal , findbankbranch , down
 
             this.homeUrl = homeUrl
             console.log('this.$route.query.upMangerId',this.$route.query.upMangerId );
+            console.log('this.$route.query.row',this.$route.query.row );
 
-            if(this.$route.query.upMangerId == -1){
-                this.editStatus = this.$route.query.upMangerId;
-            }else{
-                this.editStatus = this.$route.query.upMangerId.id;  //id
-                this.form.activityDate = this.$route.query.upMangerId.activityDate; //活动日期
-                this.form.activityName = this.$route.query.upMangerId.activityName; //内部活动名称
-                // this.form.activityStatus = this.$route.query.upMangerId.activityStatus; //活动状态
-                this.form.activityType = this.$route.query.upMangerId.activityType; //热门类型
-                this.form.actualCost = this.$route.query.upMangerId.actualCost; //	活动实际费用
-                this.form.auditPerson = this.$route.query.upMangerId.auditPerson; //审核人
-                this.form.auditTime = this.$route.query.upMangerId.auditTime; //审核时间
-                this.form.belongBank = this.$route.query.upMangerId.belongBank; //所属银行
-                this.form.belongBankId = this.$route.query.upMangerId.belongBankId; //所属银行
-                this.form.createTime = this.$route.query.upMangerId.createTime; //创建时间
-                this.form.followPeople = this.$route.query.upMangerId.followPeople; //跟进人员
 
-                // console.log('this.form.hotRecommend' ,this.form.hotRecommend);
-                // this.form.hotRecommend == 0 ? this.hotRecommend = false : this.hotRecommend = true;
+            if( !this.$route.query.row ){
                 
+            }else{
+                    if(this.$route.query.upMangerId == -1){
+                        this.editStatus = this.$route.query.upMangerId;
+                    }else{
+                        this.editStatus = this.$route.query.upMangerId.id;  //id
+                        this.form.activityDate = this.$route.query.upMangerId.activityDate; //活动日期
+                        this.form.activityName = this.$route.query.upMangerId.activityName; //内部活动名称
+                        // this.form.activityStatus = this.$route.query.upMangerId.activityStatus; //活动状态
+                        this.form.activityType = this.$route.query.upMangerId.activityType; //热门类型
+                        this.form.actualCost = this.$route.query.upMangerId.actualCost; //	活动实际费用
+                        this.form.auditPerson = this.$route.query.upMangerId.auditPerson; //审核人
+                        this.form.auditTime = this.$route.query.upMangerId.auditTime; //审核时间
+                        this.form.belongBank = this.$route.query.upMangerId.belongBank; //所属银行
+                        this.form.belongBankId = this.$route.query.upMangerId.belongBankId; //所属银行
+                        this.form.createTime = this.$route.query.upMangerId.createTime; //创建时间
+                        this.form.followPeople = this.$route.query.upMangerId.followPeople; //跟进人员
+
+                        // console.log('this.form.hotRecommend' ,this.form.hotRecommend);
+                        // this.form.hotRecommend == 0 ? this.hotRecommend = false : this.hotRecommend = true;
+                        
+                    }
             }
+
 
 
 

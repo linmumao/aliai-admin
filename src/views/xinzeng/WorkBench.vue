@@ -109,7 +109,7 @@
     import interactionPlugin from '@fullcalendar/interaction'
     import zhCnLocale from '@fullcalendar/core/locales/zh-cn'
 
-    import {activityOverview , UnfinishedBusiness , calendar } from '../../api/xinzeng'
+    import {activityOverview , UnfinishedBusiness , calendar , UnfinishedBusinessnum } from '../../api/xinzeng'
 
 
     // import {getMerScatter} from '../../api/management'
@@ -231,10 +231,11 @@
 
             this.activityOverview();
 
-            this.UnfinishedBusiness()
+            this.UnfinishedBusiness();
 
-            this.calendar()
+            this.calendar();
 
+            this.UnfinishedBusinessnum();
         },
 
         methods: {
@@ -341,6 +342,22 @@
                     (res) => {
                         console.log('查询待办事项' , res);
                         this.tableData = res.data;
+                    }
+                )
+            },
+
+            //查询待办事项数量
+            UnfinishedBusinessnum(){
+                UnfinishedBusinessnum().then(
+                    (res) => {
+                        console.log('查询待办事项数量' , res);
+                        if(res.code == 0){
+                            this.$notify({
+                                title: '消息通知',
+                                message: `你有${res.data}条待办事项，请尽快前往处理`,
+                                type: 'success'
+                            });
+                        }
                     }
                 )
             },

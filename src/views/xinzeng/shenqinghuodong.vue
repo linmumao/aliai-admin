@@ -11,7 +11,7 @@
                     <img :src=item.typeImg width="100%" height="233px" alt="">
                     <div style="display: flex; justify-content: space-between;align-items: center; height: 47px; padding: 15px; "> 
                        <div>{{ item.activityTypeName }}</div> 
-                       <el-button type="primary" size="mini"  @click="" >申请活动</el-button>
+                       <el-button type="primary" size="mini"   @click.stop="$event => ApplyActivities(item)" >申请活动</el-button>
                     </div>
                 </div>
             </div>
@@ -92,14 +92,14 @@
         </el-dialog>
 
         <el-dialog title="申请活动" :visible.sync="dialogVisible" width="550px"  top = 3vh center lock-scroll >
-            <div style=" height: 82vh;">
+            <div style=" height:500px;">
                 <el-form @submit.native.prevent :model="ruleForm"  ref="ruleForm"
                 label-width="115px" class="demo-ruleForm">
                     <el-form-item label="活动名称: " prop="typeDescribe">
                         <el-input maxlength="35" v-model="ruleForm.activityName"></el-input>
                     </el-form-item>
                     <el-form-item label="活动时间: " prop="typeDescribe">
-                        <el-date-picker v-model="ruleForm.activityDate" :clearable="false" type="date"  size="small">
+                        <el-date-picker v-model="ruleForm.activityDate" :clearable="false" type="date"  size="small" style="width: 385px;">
                         </el-date-picker>
                     </el-form-item>
                     <el-form-item label="活动地点: " prop="typeDescribe">
@@ -109,18 +109,52 @@
                         <el-input maxlength="35" v-model="ruleForm.inviteNum"></el-input>
                     </el-form-item>
                     <el-form-item label="活动内容: " prop="typeDescribe">
-                        <!-- <el-select v-model="dataOne.activityType"  size="small" style="width: 400px;">
-                            <el-option
-                            v-for="item in frequency"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value">
-                            </el-option>
-                        </el-select> -->
-                        <!-- <el-input maxlength="35" v-model="ruleForm.updateNum"></el-input> -->
+                        <table >
+                            <tr v-for="(item,index) in shopingCarts">
+                                <td><el-input v-model="item.price"></el-input></td>
+                                <td><el-button type="primary" @click="remove(index)" plain>删除</el-button></td>
+                            </tr>
+                        </table>
+                        <el-button type="primary" @click="add" plain>添加更多活动</el-button>
                     </el-form-item>
                 </el-form>
             </div>
+            <div style="text-align: center;">
+                <el-button type="primary" size="mini"  @click="dialogVisible = false" >取消</el-button>
+                <el-button type="primary" size="mini"  @click="ApplyActivitiesTwo" >提交申请</el-button>
+            </div>
+        </el-dialog>
+
+        <el-dialog title="添加更多活动" :visible.sync="centerDialogVisible" width="450px"   center lock-scroll style="height: 800px;" >
+          <div style="height: 500px; overflow-y:scroll;">
+                <div >
+                   <div class="fontblack">精选活动</div> 
+                   <div v-for="(item,index ) in selectnessarrone" :key="item.id" style="display: flex;height: 80px; margin: 15px 0; border: solid 1px rgb(241, 241, 241); " >
+                        <img :src=item.typeImg alt="" width="120px" style="height: 80px;">
+                        <div style="margin: 0 30px; display: flex; justify-content: center; align-items: center; font-size: 16px; font-weight: 600; color: black;">{{ item.activityTypeName }}</div>
+                        <div style="height: 80px; line-height: 80px; ">
+                            <el-checkbox :checked="item.checked"  @change="(bool) => handleCheckedCitiesChange(bool, item)" ></el-checkbox>
+                        </div>
+                   </div>
+                </div>
+                <div >
+                   <div class="fontblack">备选活动</div> 
+                   <div v-for="(item,index ) in alternativearrone" :key="item.id" style="display: flex;height: 80px; margin: 15px 0; border: solid 1px  rgb(241, 241, 241); " >
+                        <img :src=item.typeImg alt="" width="120px" style="height: 80px;">
+                        <div style="margin: 0 30px; display: flex; justify-content: center; align-items: center; font-size: 16px; font-weight: 600; color: black;">{{ item.activityTypeName }}</div>
+                        <div style="height: 80px; line-height: 80px; ">
+                            <el-checkbox :checked="item.checked"  @change="(bool) => handleCheckedCitiesChange(bool, item)" ></el-checkbox>
+                        </div>
+                   </div>
+                </div>
+                <div class="fontblack">
+                    备选服务
+                </div>
+          </div>
+          <span slot="footer" class="dialog-footer">
+             <el-button @click="centerDialogVisible = false">取 消</el-button>
+             <el-button type="primary" @click="centerDialogVisible = false">确 定</el-button>
+          </span>
         </el-dialog>
     </div>
 </template>
@@ -139,10 +173,17 @@ export default{
             //申请活动弹窗页
             dialogVisible:false,
 
+            //购物车
+            centerDialogVisible:false,
+
+
             // 精选活动
             selectnessarr:[],
+            selectnessarrone:[],
+
             // 备选活动
             alternativearr:[],
+            alternativearrone:[],
 
             //点击查看详情信息
             ActivitiesDetailsarr:[],
@@ -160,16 +201,22 @@ export default{
                         "activityName": "",              //活动名称
                         "id": 0,                         //活动列表ID
                         "inviteNum": 0                   //邀约人数
-                    },
+            },
 
 
+            //点击添加更多链接
+            shopingCarts: [{price: ''}],
+            one:[],
+            two:'',
+            checked1:false,                    
+            three:[],
 
 
-            newarr:[
-                {data:'创意虎皮饺子/汤圆'},{data:'创意虎皮饺子/汤圆'},{data:'创意虎皮饺子/汤圆'},{data:'创意虎皮饺子/汤圆'},
-                {data:'创意虎皮饺子/汤圆'},{data:'创意虎皮饺子/汤圆'},{data:'创意虎皮饺子/汤圆'},{data:'创意虎皮饺子/汤圆'},
-                {data:'创意虎皮饺子/汤圆'},{data:'创意虎皮饺子/汤圆'},{data:'创意虎皮饺子/汤圆'},{data:'创意虎皮饺子/汤圆'},
-            ]
+            // newarr:[
+            //     {data:'创意虎皮饺子/汤圆'},{data:'创意虎皮饺子/汤圆'},{data:'创意虎皮饺子/汤圆'},{data:'创意虎皮饺子/汤圆'},
+            //     {data:'创意虎皮饺子/汤圆'},{data:'创意虎皮饺子/汤圆'},{data:'创意虎皮饺子/汤圆'},{data:'创意虎皮饺子/汤圆'},
+            //     {data:'创意虎皮饺子/汤圆'},{data:'创意虎皮饺子/汤圆'},{data:'创意虎皮饺子/汤圆'},{data:'创意虎皮饺子/汤圆'},
+            // ]
         }
     },
 
@@ -185,13 +232,25 @@ export default{
             selectness().then(
                 (res) => {
                     this.selectnessarr = res.data;
+                    this.selectnessarrone = res.data;
                     console.log('查看外部-活动列表-申请活动（精选）' , this.selectnessarr);
+
+                    // 
+                    this.selectnessarrone.forEach(item => {
+                        item.checked = false
+                    })
+
                 }
             )
             alternative().then(
                 (res) => {
                     this.alternativearr = res.data;
+                    this.alternativearrone = res.data;
                     console.log('查看外部-活动列表-申请活动（备选）' , this.alternativearr);
+
+                    this.alternativearrone.forEach(item => {
+                        item.checked = false
+                    })
                 }
             )
         },
@@ -217,6 +276,60 @@ export default{
             this.dialogTableVisible = false;
             this.dialogVisible=true;
         },
+        //点击申请活动
+        ApplyActivitiesTwo(){
+            console.log('点击申请活动');
+            ApplyActivities().then(
+                (res) => {
+                    console.log('点击申请活动' , res);
+                }
+            )
+        },
+
+        //处理上传多条视频地址
+        //添加
+        add() {
+
+            this.centerDialogVisible = true;
+
+
+            // this.one = [];
+            // this.shopingCarts.push({ price: '',});
+
+
+
+
+        },
+        //移除
+        remove(index) {  
+            this.shopingCarts.splice(index, 1);
+        },
+        //将视频地址整合成字符串
+        sha(){
+            for( var i = 0; i < this.shopingCarts.length; i++){
+                this.one.push(this.shopingCarts[i].price);
+                this.two = this.one.join(',')
+                console.log('two' ,this.two );
+            }
+        },
+
+        handleCheckedCitiesChange(bool, data){
+            // debugger
+            data.checked = !data.checked
+            console.log('this.alternativearrone' ,this.alternativearrone);
+            // if(data.checked == true){
+            //     this.three.push({ activityTypeName:data.activityTypeName , id : data.id})
+            //     console.log('this.three' ,this.three);
+            // }else{
+            //     for( var i = 0; i < this.three.length; i++){
+            //         if(data.id == this.three[i].id ){
+            //             this.three.splice(i , 1)
+            //         }
+            //     }
+            //     console.log('this.three' ,this.three);
+            // }
+        },
+
 
 
         handleClick(tab, event) {
@@ -232,5 +345,11 @@ export default{
 </script>
 
 <style>
+.fontblack{
+    font-size: 16px;
+    font-weight: 600;
+    color: black;
+}
+
 
 </style>
